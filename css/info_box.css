@@ -156,6 +156,7 @@
 	border-bottom-style: solid;
 	*/
 	padding: 0.2em;
+	padding-left: 10px;
 	font-size: 1.1em;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -201,6 +202,7 @@
     color: white;
 }
 .coderlol-new-title-box{
+	letter-spacing: 1px;
 	position: absolute;
 	bottom: 10px;
 	display: inline-block;
