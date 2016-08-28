@@ -120,7 +120,6 @@ PREVIEW BUTTON EVENT END
 		
 		$coderlol_content_color_grad_pos = $_POST['coderlol_info_box_content_grad_position'];
 
-		echo $coderlol_content_color;
 
 		if ($coderlol_title_color_grad_pos == '') { $coderlol_title_color_grad = ''; }
 
