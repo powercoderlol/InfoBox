@@ -50,7 +50,7 @@ PREVIEW BUTTON EVENT BEGIN
 		$coderlol_category = $_POST['coderlol_category'];
 		$coderlol_color = $coderlol_note_color.$_POST['coderlol_note_color'];
 		$coderlol_color_transfer = $_POST['coderlol_note_color'];
-		$coderlol_font_size = $_POST['coderlol_note_fontsize'];
+		$coderlol_title_height = $_POST['coderlol_note_fontsize'];
 		$coderlol_note_rotation = $_POST['coderlol_note_rotation'];
 		$coderlol_grad = $_POST['grad'];
 		if ($coderlol_grad == 'on') { $coderlol_grad='1'; } else { $coderlol_grad = '0'; }
@@ -102,7 +102,7 @@ PREVIEW BUTTON EVENT END
 
 		$coderlol_title = $_POST['coderlol_info_box_title'];
 		$coderlol_content = stripslashes($_POST['coderlol_info_box_content']);
-		$coderlol_font_size = $_POST['coderlol_info_box_fontsize'];
+		$coderlol_title_height = $_POST['coderlol_info_box_fontsize'];
 		$coderlol_title_img = $_POST['url_info_box_title_bg'];
 
 		$coderlol_title_color = $color_prefix.$_POST['coderlol_info_box_title_color'];
@@ -130,7 +130,7 @@ PREVIEW BUTTON EVENT END
 						$table_info_box,
 						array(	'title' => $coderlol_title,
 								'content' => $coderlol_content,
-								'fontSize' => $coderlol_font_size,
+								'heightTitle' => $coderlol_title_height,
 
 								'titleImgUrl' => $coderlol_title_img,
 								'colorTitle' => $coderlol_title_color,
@@ -184,7 +184,7 @@ PREVIEW BUTTON EVENT END
 	*/
 
 
-	if ($preview == 'false' ) { coderlol_info_box_ui_subpage_0('','','20','E6E6E6','', '', '', 'E6E6E6', '', '','','0'); }
+	if ($preview == 'false' ) { coderlol_info_box_ui_subpage_0('','','75','E6E6E6','', '', '', 'E6E6E6', '', '','','0'); }
 
 		
 
@@ -203,14 +203,14 @@ function coderlol_info_box_option_subpage_2() {
 		$result_row = mysql_query("SELECT * FROM ".$table_info_box." WHERE id=".$box_id);
 		$res = mysql_fetch_array($result_row, MYSQL_ASSOC);
 
-		coderlol_info_box_ui_subpage_0($res['title'], $res['content'], $res['fontSize'], $res['colorTitle'], $res['gradColorTitle'], $res['gradPositionTitle'], $res['titleImgUrl'], $res['colorContent'], $res['gradColorContent'], $res['gradPositionContent'], $res['contentImgUrl'], '1');
+		coderlol_info_box_ui_subpage_0($res['title'], $res['content'], $res['heightTitle'], $res['colorTitle'], $res['gradColorTitle'], $res['gradPositionTitle'], $res['titleImgUrl'], $res['colorContent'], $res['gradColorContent'], $res['gradPositionContent'], $res['contentImgUrl'], '1');
 
 	}
 	elseif ( isset($_POST['coderlol_create_info_box_btn']) )
 	{
 		$coderlol_title = $_POST['coderlol_info_box_title'];
 		$coderlol_content = stripslashes($_POST['coderlol_info_box_content']);
-		$coderlol_font_size = $_POST['coderlol_info_box_fontsize'];
+		$coderlol_title_height = $_POST['coderlol_info_box_fontsize'];
 		$coderlol_title_img = $_POST['url_info_box_title_bg'];
 
 		$coderlol_title_color = $color_prefix.$_POST['coderlol_info_box_title_color'];
@@ -240,7 +240,7 @@ function coderlol_info_box_option_subpage_2() {
 
 						array(	'title' => $coderlol_title,
 								'content' => $coderlol_content,
-								'fontSize' => $coderlol_font_size,
+								'heightTitle' => $coderlol_title_height,
 
 								'titleImgUrl' => $coderlol_title_img,
 								'colorTitle' => $coderlol_title_color,
@@ -278,7 +278,7 @@ function coderlol_info_box_option_subpage_2() {
 
 UI SUBPAGE CREATE NOTE
 */
-function coderlol_info_box_ui_subpage_0($title, $content_box, $fontSize, $colorTitle, $gradColorTitle, $gradPositionTitle, $titleImgUrl, $colorContent, $gradColorContent, $gradPositionContent, $contentImgUrl, $update)
+function coderlol_info_box_ui_subpage_0($title, $content_box, $heightTitle, $colorTitle, $gradColorTitle, $gradPositionTitle, $titleImgUrl, $colorContent, $gradColorContent, $gradPositionContent, $contentImgUrl, $update)
 {
 $settings = array ('convert_urls' => true, 'relative_urls' => false, 'remove_script_host' => false, 'document_base_url' => 'base_path()', 'forced_root_block' => 'br');
 $editor_id = 'coderlol_info_box_content';
@@ -325,6 +325,10 @@ elseif ($update == '0')
 					wp_editor( $content, $editor_id, $settings);
 			?>
 			</div>
+		<label><h3>Высота блока заголовка:</h3></label>
+    		<p>
+    			<input id='coderlol_info_box_fontsize' type='number' name='coderlol_info_box_fontsize' min='75' max='500' value=<?php echo "'".$heightTitle."'" ?> class='coderlol-note-text'>
+    		</p>
 		<hr noshade size="3"></hr>
     	<label><h3>Блок заголовка:</h3></label>
     		<p>
@@ -374,11 +378,6 @@ elseif ($update == '0')
     		<p>
     			<input id='grad_info_box_content' name='grad_info_box_content' type="checkbox" <?php if ($gradColorContent != NULL) echo "checked"; ?> >
     			Градиент
-    		</p>
-    		<hr noshade size="3"></hr>
-    		<label><h3>Размер шрифта:</h3></label>
-    		<p>
-    			<input id='coderlol_info_box_fontsize' type='number' name='coderlol_info_box_fontsize' min='20' max='25' value=<?php echo "'".$fontSize."'" ?> class='coderlol-note-text'>
     		</p>
     		<p id='grad_ops'></p>
     		<hr noshade size="3"></hr>
@@ -478,7 +477,7 @@ function create_info_box_template($id)
 		$curr_title_style = "background-image: url(".$result['titleImgUrl']."); ";
 	}
 
-	//$curr_title_style = $curr_title_style."height: ".$coderlol_note_title_height."px; ";
+	$curr_title_style = $curr_title_style."height: ".$result['heightTitle']."px; ";
 
 	/**
 		CONTENT
@@ -497,7 +496,7 @@ function create_info_box_template($id)
 		$curr_content_style = "background-image: url(".$result['contentImgUrl']."); ";
 	}
 
-	$template = '<div><div class="coderlol-note-box"><div class="coderlol-note-box-title" style="'.$curr_title_style.' height: 75px;"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-note-box-content" style="'.$curr_content_style.'">' .wpautop($result['content']).'</div></div>';
+	$template = '<div><div class="coderlol-note-box"><div class="coderlol-note-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-note-box-content" style="'.$curr_content_style.'">' .wpautop($result['content']).'</div></div>';
 
 	return $template;
 
