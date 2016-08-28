@@ -120,7 +120,7 @@ PREVIEW BUTTON EVENT END
 		
 		$coderlol_content_color_grad_pos = $_POST['coderlol_info_box_content_grad_position'];
 
-		//echo $coderlol_title_img;
+		echo $coderlol_content_color;
 
 		if ($coderlol_title_color_grad_pos == '') { $coderlol_title_color_grad = ''; }
 
@@ -210,7 +210,7 @@ function coderlol_info_box_option_subpage_2() {
 	elseif ( isset($_POST['coderlol_create_info_box_btn']) )
 	{
 		$coderlol_title = $_POST['coderlol_info_box_title'];
-		$coderlol_content = wpautop(stripslashes($_POST['coderlol_info_box_content']));
+		$coderlol_content = stripslashes($_POST['coderlol_info_box_content']);
 		$coderlol_font_size = $_POST['coderlol_info_box_fontsize'];
 		$coderlol_title_img = $_POST['url_info_box_title_bg'];
 
@@ -487,7 +487,7 @@ function create_info_box_template($id)
 
 	if ( ($result['contentImgUrl'] == null) and ($result['gradColorContent'] == null) )
 	{
-		$curr_content_style = "background-color: ".$color_prefix.$result['contentTitle']."; ";
+		$curr_content_style = "background-color: ".$color_prefix.$result['colorContent']."; ";
 	}
 	elseif ( ($result['titleImgUrl'] == null) and ($result['gradColorContent'] != null) )
 	{
