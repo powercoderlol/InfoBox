@@ -184,7 +184,7 @@ PREVIEW BUTTON EVENT END
 	*/
 
 
-	if ($preview == 'false' ) { coderlol_info_box_ui_subpage_0('','','75','E6E6E6','', '', '', 'E6E6E6', '', '','','0'); }
+	if ($preview == 'false' ) { coderlol_info_box_ui_subpage_0('','','100','E6E6E6','', '', '', 'E6E6E6', '', '','','0'); }
 
 		
 
@@ -327,7 +327,7 @@ elseif ($update == '0')
 			</div>
 		<label><h3>Высота блока заголовка:</h3></label>
     		<p>
-    			<input id='coderlol_info_box_fontsize' type='number' name='coderlol_info_box_fontsize' min='75' max='500' value=<?php echo "'".$heightTitle."'" ?> class='coderlol-note-text'>
+    			<input id='coderlol_info_box_fontsize' type='number' name='coderlol_info_box_fontsize' min='100' max='500' value=<?php echo "'".$heightTitle."'" ?> class='coderlol-note-text'>
     		</p>
 		<hr noshade size="3"></hr>
     	<label><h3>Блок заголовка:</h3></label>
