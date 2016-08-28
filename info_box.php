@@ -101,7 +101,7 @@ PREVIEW BUTTON EVENT END
 		//$color_prefix = '#';
 
 		$coderlol_title = $_POST['coderlol_info_box_title'];
-		$coderlol_content = wpautop(stripslashes($_POST['coderlol_info_box_content']));
+		$coderlol_content = stripslashes($_POST['coderlol_info_box_content']);
 		$coderlol_font_size = $_POST['coderlol_info_box_fontsize'];
 		$coderlol_title_img = $_POST['url_info_box_title_bg'];
 
@@ -498,7 +498,7 @@ function create_info_box_template($id)
 		$curr_content_style = "background-image: url(".$result['contentImgUrl']."); ";
 	}
 
-	$template = '<div><div class="coderlol-note-box"><div class="coderlol-note-box-title" style="'.$curr_title_style.' height: 75px;"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-note-box-content" style="'.$curr_content_style.'">' .$result['content'].'</div></div>';
+	$template = '<div><div class="coderlol-note-box"><div class="coderlol-note-box-title" style="'.$curr_title_style.' height: 75px;"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-note-box-content" style="'.$curr_content_style.'">' .wpautop($result['content']).'</div></div>';
 
 	return $template;
 

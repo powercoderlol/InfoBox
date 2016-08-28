@@ -37,7 +37,7 @@ jQuery(document).ready(function($) {
 				jQuery('#coderlol_info_box_content_color_grad').css('width', '0%');
 				jQuery('#coderlol_info_box_content_grad_position').css('visibility', 'hidden');
 				jQuery('#coderlol_info_box_content_grad_position').css('width', '0%');	
-				jQuery('#coderlol_info_box_content_grad_position').css('position', 'absolute');		
+				jQuery('#coderlol_info_box_content_grad_position').css('position', 'absolute');	
 	}
 
 
@@ -53,6 +53,7 @@ jQuery(document).ready(function($) {
 				jQuery('#coderlol_info_box_title_grad_position').css('visibility', '');
 				jQuery('#coderlol_info_box_title_grad_position').css('width', '50%');
 				jQuery('#coderlol_info_box_title_grad_position').css('position', 'inherit');
+				jQuery('#coderlol_info_box_title_grad_position').val('');
 
 			}
 			else
@@ -61,7 +62,8 @@ jQuery(document).ready(function($) {
 				jQuery('#coderlol_info_box_title_color_grad').css('width', '0%');
 				jQuery('#coderlol_info_box_title_grad_position').css('visibility', 'hidden');
 				jQuery('#coderlol_info_box_title_grad_position').css('width', '0%');	
-				jQuery('#coderlol_info_box_title_gead_position').css('position', 'absolute');			
+				jQuery('#coderlol_info_box_title_gead_position').css('position', 'absolute');
+				jQuery('#coderlol_info_box_title_grad_position').val('');			
 			}
 
 
@@ -80,6 +82,8 @@ jQuery(document).ready(function($) {
 				jQuery('#coderlol_info_box_content_grad_position').css('visibility', '');
 				jQuery('#coderlol_info_box_content_grad_position').css('width', '50%');
 				jQuery('#coderlol_info_box_content_grad_position').css('position', 'inherit');
+				jQuery('#coderlol_info_box_content_grad_position').css('position', 'inherit');
+				jQuery('#coderlol_info_box_content_grad_position').val('');
 
 			}
 			else
@@ -88,7 +92,8 @@ jQuery(document).ready(function($) {
 				jQuery('#coderlol_info_box_content_color_grad').css('width', '0%');
 				jQuery('#coderlol_info_box_content_grad_position').css('visibility', 'hidden');
 				jQuery('#coderlol_info_box_content_grad_position').css('width', '0%');	
-				jQuery('#coderlol_info_box_content_grad_position').css('position', 'absolute');			
+				jQuery('#coderlol_info_box_content_grad_position').css('position', 'absolute');	
+				jQuery('#coderlol_info_box_content_grad_position').val('');		
 			}
 
 
