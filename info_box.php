@@ -496,7 +496,7 @@ function create_info_box_template($id)
 		$curr_content_style = "background-image: url(".$result['contentImgUrl']."); ";
 	}
 
-	$template = '<div class="coderlol-note-box"><div class="coderlol-note-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-note-box-content" style="'.$curr_content_style.'">' .wpautop($result['content']).'</div></div>';
+	$template = '<div class="coderlol-info-box"><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-info-box-content" style="'.$curr_content_style.'">' .wpautop($result['content']).'</div></div>';
 
 	return $template;
 

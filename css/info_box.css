@@ -138,17 +138,18 @@
 /*		Notes Box
 ---------------------------------------------------------------*/
 
-.coderlol-note-box {
+
+.coderlol-info-box {
 	/*
 	margin: 0 0 1.5em 0;
 	border-width: 2px;
 	border-style: solid;
 	*/
 	font-family: -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,Arial,sans-serif;
-	float: left;
 	width: 100%;
 }
-.coderlol-note-box-title {
+
+.coderlol-info-box-title {
 	position: relative;
 	display: block;
 	/*
@@ -162,11 +163,11 @@
 	background-size: cover;
     background-position: center;
 }
-.coderlol-note-box-content {
+
+.coderlol-info-box-content {
 	background-color: #fff;
 	color: #000;
 	padding: 1em;
-	float: left;
   	width: 100%;
   	background-repeat: no-repeat;
   	background-size: cover;
