@@ -159,6 +159,7 @@
 	font-size: 1.1em;
 	background-repeat: no-repeat;
 	background-size: cover;
+    background-position: center;
 }
 .coderlol-note-box-content {
 	background-color: #fff;
@@ -168,6 +169,7 @@
   	width: 100%;
   	background-repeat: no-repeat;
   	background-size: cover;
+  	background-position: center;
 }
 
 /*		Category note box 
