@@ -173,6 +173,9 @@
   	background-size: cover;
   	background-position: center;
 }
+.coderlol-info-box-content p {
+	margin: 0px !important;
+}
 
 /*		Category note box 
 ---------------------------------------------------------------*/
