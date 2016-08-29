@@ -487,7 +487,7 @@ function create_info_box_template($id)
 	{
 		$curr_content_style = "background-color: ".$color_prefix.$result['colorContent']."; ";
 	}
-	elseif ( ($result['titleImgUrl'] == null) and ($result['gradColorContent'] != null) )
+	elseif ( ($result['contentImgUrl'] == null) and ($result['gradColorContent'] != null) )
 	{
 		$curr_content_style = "background: linear-gradient(".$result['gradPositionContent'].", ".$color_prefix.$result['colorContent'].", ".$color_prefix.$result['gradColorContent']."); ";
 	}
