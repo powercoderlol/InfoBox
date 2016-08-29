@@ -176,6 +176,11 @@
 .coderlol-info-box-content p {
 	margin: 0px !important;
 }
+.coderlol-info-box-content :nth-child(2n),
+.coderlol-info-box-content :nth-child(2n+1) {
+    margin: 0px !important;
+}
+
 
 /*		Category note box 
 ---------------------------------------------------------------*/
