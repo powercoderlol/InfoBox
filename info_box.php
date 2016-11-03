@@ -371,7 +371,7 @@ elseif ($update == '0')
 			</p>
 		<hr noshade size="3"></hr>
 		<label><h3>Содержимое:</h3></label>
-			<div style="width: 50%">
+			<div style="width: 70%">
 			<?php 	/*<p>					
 					<textarea id='coderlol_content' name='coderlol_content' type='text' class='coderlol-note-textarea'></textarea>
 					</p>*/
@@ -577,7 +577,7 @@ function create_info_box_template_preview($id, $preview_width, $result)
 
 	if ($preview_width == 1)
 	{
-		$preview_width = 'style="width: 80%; font-size: 20px;"';
+		$preview_width = 'style="width: 80%; font-size: 20px; font"';
 	}
 	else
 	{
