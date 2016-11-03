@@ -577,7 +577,7 @@ function create_info_box_template_preview($id, $preview_width, $result)
 
 	if ($preview_width == 1)
 	{
-		$preview_width = 'style="width: 60%; font-size: 20px;"';
+		$preview_width = 'style="width: 80%; font-size: 20px;"';
 	}
 	else
 	{
@@ -625,7 +625,7 @@ function create_info_box_template_preview($id, $preview_width, $result)
 
 	$template = '<div class="coderlol-info-box" '.$preview_width.'><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-info-box-content" style="'.$curr_content_style.'">' .$result_content.'</div></div>';
 
-	return '<div>'.$template.'</div>';
+	return $template;
 
 }
 
