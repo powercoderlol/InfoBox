@@ -308,7 +308,7 @@ function coderlol_info_box_option_subpage_2() {
 								'gradPositionContent' => $coderlol_content_color_grad_pos
 							);
 
-		echo wpautop(create_info_box_template_preview($box_id,1,$result));
+		echo create_info_box_template_preview($box_id,1,$result);
 		
 		coderlol_info_box_ui_subpage_0($coderlol_title, $coderlol_content, $coderlol_title_height, $coderlol_title_color, $coderlol_title_color_grad, $coderlol_title_color_grad_pos, $coderlol_title_img, $coderlol_content_color, $coderlol_content_color_grad, $coderlol_content_color_grad_pos, $coderlol_content_img, '1');
 
@@ -504,7 +504,7 @@ function coderlol_info_box_ui_subpage_2()
 
 
 
-function create_info_box_template($id, $preview_width)
+function create_info_box_template($id)
 {
 	global $wpdb;
 
@@ -515,15 +515,6 @@ function create_info_box_template($id, $preview_width)
 	$result_array = mysql_query("SELECT * FROM ".$table_info_box." WHERE id=".$id);
 
 	$result = mysql_fetch_array($result_array, MYSQL_ASSOC);
-
-	if ($preview_width == 1)
-	{
-		$preview_width = 'style="width: 734px; font-size: 20px;"';
-	}
-	else
-	{
-		$preview_width = '';
-	}
 
 	/**
 		TITLE
@@ -561,9 +552,10 @@ function create_info_box_template($id, $preview_width)
 		$curr_content_style = "background-image: url(".$result['contentImgUrl']."); ";
 	}
 
-	$result_content = str_replace(array("\r\n", "\r", "\n"), "<br />", $result['content']);
+	//$result_content = do_shortcode(str_replace(array("\r\n", "\r", "\n"), "<br />", $result['content']));
+	$result_content = do_shortcode($result['content']);
 
-	$template = '<div class="coderlol-info-box" '.$preview_width.'><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-info-box-content" style="'.$curr_content_style.'">' .$result_content.'</div></div>';
+	$template = '<div class="coderlol-info-box" ><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-info-box-content" style="'.$curr_content_style.'">' .$result_content.'</div></div>';
 
 	return $template;
 
@@ -585,7 +577,7 @@ function create_info_box_template_preview($id, $preview_width, $result)
 
 	if ($preview_width == 1)
 	{
-		$preview_width = 'style="width: 734px; font-size: 20px;"';
+		$preview_width = 'style="width: 60%; font-size: 20px;"';
 	}
 	else
 	{
@@ -628,11 +620,12 @@ function create_info_box_template_preview($id, $preview_width, $result)
 		$curr_content_style = "background-image: url(".$result['contentImgUrl']."); ";
 	}
 
-	$result_content = str_replace(array("\r\n", "\r", "\n"), "<br />", $result['content']);
+	//$result_content = do_shortcode(str_replace(array("\r\n", "\r", "\n"), "<br />", $result['content']));
+	$result_content = do_shortcode($result['content']);
 
 	$template = '<div class="coderlol-info-box" '.$preview_width.'><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-info-box-content" style="'.$curr_content_style.'">' .$result_content.'</div></div>';
 
-	return $template;
+	return '<div>'.$template.'</div>';
 
 }
 
@@ -646,7 +639,7 @@ function coderlol_info_box( $atts) {
 	), $atts ) );
 	//$template = create_note_desk_template();
 
-	return create_info_box_template($id,0);
+	return create_info_box_template($id);
 }
 /***************************SHORTCODE FOR DESK***************************/
 
