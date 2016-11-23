@@ -45,7 +45,7 @@ PREVIEW BUTTON EVENT BEGIN
 
 		$preview = 'true';
 		//$coderlol_note_color = "#";
-		$coderlol_title = $_POST['coderlol_title'];
+		$coderlol_title = stripslashes($_POST['coderlol_title']);
 		$coderlol_content = stripslashes($_POST['coderlol_content']);
 		$coderlol_category = $_POST['coderlol_category'];
 		$coderlol_color = $coderlol_note_color.$_POST['coderlol_note_color'];
@@ -100,7 +100,7 @@ PREVIEW BUTTON EVENT END
 
 		//$color_prefix = '#';
 
-		$coderlol_title = $_POST['coderlol_info_box_title'];
+		$coderlol_title = stripcslashes($_POST['coderlol_info_box_title']);
 		$coderlol_content = stripslashes($_POST['coderlol_info_box_content']);
 		$coderlol_title_height = $_POST['coderlol_info_box_fontsize'];
 		$coderlol_title_img = $_POST['url_info_box_title_bg'];
@@ -208,7 +208,7 @@ function coderlol_info_box_option_subpage_2() {
 	}
 	elseif ( isset($_POST['coderlol_create_info_box_btn']) )
 	{
-		$coderlol_title = $_POST['coderlol_info_box_title'];
+		$coderlol_title = stripslashes($_POST['coderlol_info_box_title']);
 		$coderlol_content = stripslashes($_POST['coderlol_info_box_content']);
 		$coderlol_title_height = $_POST['coderlol_info_box_fontsize'];
 		$coderlol_title_img = $_POST['url_info_box_title_bg'];
@@ -263,7 +263,7 @@ function coderlol_info_box_option_subpage_2() {
 	elseif (isset($_POST['coderlol_preview_info_box_btn']) )
 	{
 		$box_id = get_option('coderlol_last_mod_box');
-		$coderlol_title = $_POST['coderlol_info_box_title'];
+		$coderlol_title = stripslashes($_POST['coderlol_info_box_title']);
 		$coderlol_content = stripslashes($_POST['coderlol_info_box_content']);
 		$coderlol_title_height = $_POST['coderlol_info_box_fontsize'];
 		$coderlol_title_img = $_POST['url_info_box_title_bg'];
