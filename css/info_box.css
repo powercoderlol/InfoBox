@@ -23,9 +23,9 @@
 	box-sizing: border-box
 }
 
-.coderlol-note-select-btn-settings
+.coderlol-info-box-select-btn-settings
 {	
-	height: 100px !important;
+	height: 400px !important;
 	line-height: 100px !important;
 	width: 50%;
 	border-radius: 4px;

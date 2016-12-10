@@ -476,7 +476,7 @@ function coderlol_info_box_ui_subpage_2()
 	<form id='coderlol_update_box' name='coderlol_update_box' method='post' action='?page=change_infobox'>
 		<label><h3>Выберите блок по заголовку:</h3></label>
 		<p>
-		<select id='coderlol_get_box' name='coderlol_get_box' type='text' class='coderlol-note-select-btn-settings' size="3">
+		<select id='coderlol_get_box' name='coderlol_get_box' type='text' class='coderlol-info-box-select-btn-settings' size="3">
 			<?php
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
