@@ -185,9 +185,6 @@ PREVIEW BUTTON EVENT END
 
 
     if ($preview == 'false' ) { coderlol_info_box_ui_subpage_0('','','100','E6E6E6','', '', '', 'E6E6E6', '', '','','0'); }
-
-        
-
 }
 
 
@@ -200,8 +197,7 @@ function coderlol_info_box_option_subpage_2() {
     {
         $box_id = $_POST['coderlol_get_box'];
         update_option('coderlol_last_mod_box', $box_id);
-        $result_row = mysql_query("SELECT * FROM ".$table_info_box." WHERE id=".$box_id);
-        $res = mysql_fetch_array($result_row, MYSQL_ASSOC);
+        $res = $wpdb->get_row("SELECT id, title, content, heightTitle, colorTitle, gradColorTitle, gradPositionTitle, titleImgUrl, colorContent, gradColorContent, gradPositionContent, contentImgUrl FROM ".$table_info_box." WHERE id=".$box_id, ARRAY_A);
 
         coderlol_info_box_ui_subpage_0($res['title'], $res['content'], $res['heightTitle'], $res['colorTitle'], $res['gradColorTitle'], $res['gradPositionTitle'], $res['titleImgUrl'], $res['colorContent'], $res['gradColorContent'], $res['gradPositionContent'], $res['contentImgUrl'], '1');
 
@@ -466,9 +462,7 @@ function coderlol_info_box_ui_subpage_2()
     $editor_id = 'coderlol_content';
     global $wpdb;
     $table_info_box = $wpdb->prefix . "coderlol_info_box";
-    //$result = mysql_query("SELECT title FROM wp_coderlol_notes");
-    $result = mysql_query("SELECT id, title FROM ".$table_info_box." ORDER BY id DESC");
-    
+    $result = $wpdb->get_results("SELECT id, title FROM ".$table_info_box." ORDER BY id DESC", ARRAY_A);
 ?>
     <h2>Change a Box</h2>
     <p>Автор плагина: <a href="https://www.vk.com/coderlol">Поляков Иван</a>
@@ -478,10 +472,8 @@ function coderlol_info_box_ui_subpage_2()
         <p>
         <select id='coderlol_get_box' name='coderlol_get_box' type='text' class='coderlol-info-box-select-btn-settings' size="3">
             <?php
-                while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-
+                foreach( $result as $row) {
                     $box_title_value = $row['title'];
-                    
                     echo("<option value='".$row['id']."'>".$row['id'].".  ".$box_title_value."  [coderlol_info_box id=".$row['id']." /]</option>");
                 }
             ?>
@@ -512,50 +504,52 @@ function create_info_box_template($id)
 
     $color_prefix = '#';
 
-    $result_array = mysql_query("SELECT * FROM ".$table_info_box." WHERE id=".$id);
-
-    $result = mysql_fetch_array($result_array, MYSQL_ASSOC);
+    //$sql = $wpdb->prepare("SELECT id, title, content, heightTitle, colorTitle, gradColorTitle, gradPositionTitle, titleImgUrl, colorContent, gradColorContent, gradPositionContent, contentImgUrl FROM %s WHERE id = %d", $table_info_box, $id);
+    $result = $wpdb->get_row("SELECT id, title, content, heightTitle, colorTitle, gradColorTitle, gradPositionTitle, titleImgUrl, colorContent, gradColorContent, gradPositionContent, contentImgUrl FROM ".$table_info_box." WHERE id=".$id);
+    // TODO: check error if not result_array
+    if($result == null)
+        return;
 
     /**
         TITLE
     */
 
-    if ( ($result['titleImgUrl'] == null) and ($result['gradColorTitle'] == null) )
+    if ( ($result->titleImgUrl == null) and ($result->gradColorTitle == null) )
     {
-        $curr_title_style = "background-color: ".$color_prefix.$result['colorTitle']."; ";
+        $curr_title_style = "background-color: ".$color_prefix.$result->colorTitle."; ";
     }
-    elseif ( ($result['titleImgUrl'] == null) and ($result['gradColorTitle'] != null) )
+    elseif ( ($result->titleImgUrl == null) and ($result->gradColorTitle != null) )
     {
-        $curr_title_style = "background: linear-gradient(".$result['gradPositionTitle'].", ".$color_prefix.$result['colorTitle'].", ".$color_prefix.$result['gradColorTitle']."); ";
+        $curr_title_style = "background: linear-gradient(".$result->gradPositionTitle.", ".$color_prefix.$result->colorTitle.", ".$color_prefix.$result->gradColorTitle."); ";
     }
     else 
     {
-        $curr_title_style = "background-image: url(".$result['titleImgUrl']."); ";
+        $curr_title_style = "background-image: url(".$result->titleImgUrl."); ";
     }
 
-    $curr_title_style = $curr_title_style."height: ".$result['heightTitle']."px; ";
+    $curr_title_style = $curr_title_style."height: ".$result->heightTitle."px; ";
 
     /**
         CONTENT
     */
 
-    if ( ($result['contentImgUrl'] == null) and ($result['gradColorContent'] == null) )
+    if ( ($result->contentImgUrl == null) and ($result->gradColorContent == null) )
     {
-        $curr_content_style = "background-color: ".$color_prefix.$result['colorContent']."; ";
+        $curr_content_style = "background-color: ".$color_prefix.$result->colorContent."; ";
     }
-    elseif ( ($result['contentImgUrl'] == null) and ($result['gradColorContent'] != null) )
+    elseif ( ($result->contentImgUrl == null) and ($result->gradColorContent != null) )
     {
-        $curr_content_style = "background: linear-gradient(".$result['gradPositionContent'].", ".$color_prefix.$result['colorContent'].", ".$color_prefix.$result['gradColorContent']."); ";
+        $curr_content_style = "background: linear-gradient(".$result->gradPositionContent.", ".$color_prefix.$result->colorContent.", ".$color_prefix.$result->gradColorContent."); ";
     }
     else 
     {
-        $curr_content_style = "background-image: url(".$result['contentImgUrl']."); ";
+        $curr_content_style = "background-image: url(".$result->contentImgUrl."); ";
     }
 
-    //$result_content = do_shortcode(str_replace(array("\r\n", "\r", "\n"), "<br />", $result['content']));
-    $result_content = do_shortcode($result['content']);
+    //$result_content = do_shortcode(str_replace(array("\r\n", "\r", "\n"), "<br />", $result->content));
+    $result_content = do_shortcode($result->content);
 
-    $template = '<div class="coderlol-info-box" ><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-info-box-content" style="'.$curr_content_style.'">' .$result_content.'</div></div>';
+    $template = '<div class="coderlol-info-box" ><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result->title . '</div></div><div class="coderlol-info-box-content" style="-ms-hyphens: none; '.$curr_content_style.'">' .$result_content.'</div></div>';
 
     return $template;
 
@@ -565,16 +559,12 @@ PREVIEW TEMPLATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 **/
 function create_info_box_template_preview($id, $preview_width, $result)
 {
-    global $wpdb;
-
-    $table_info_box = $wpdb->prefix . "coderlol_info_box";
-
-    $color_prefix = '#';
-
+    //global $wpdb;
+    //$table_info_box = $wpdb['prefix . "coderlol_info_box";
     //$result_array = mysql_query("SELECT * FROM ".$table_info_box." WHERE id=".$id);
-
     //$result = mysql_fetch_array($result_array, MYSQL_ASSOC);
 
+    $color_prefix = '#';
     if ($preview_width == 1)
     {
         $preview_width = 'style="width: 80%; font-size: 20px; font"';
@@ -620,10 +610,10 @@ function create_info_box_template_preview($id, $preview_width, $result)
         $curr_content_style = "background-image: url(".$result['contentImgUrl']."); ";
     }
 
-    //$result_content = do_shortcode(str_replace(array("\r\n", "\r", "\n"), "<br />", $result['content']));
+    //$result_content = do_shortcode(str_replace(array("\r\n", "\r", "\n"), "<br />", $result['content));
     $result_content = do_shortcode($result['content']);
 
-    $template = '<div class="coderlol-info-box" '.$preview_width.'><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-info-box-content" style="'.$curr_content_style.'">' .$result_content.'</div></div>';
+    $template = '<div class="coderlol-info-box" '.$preview_width.'><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-info-box-content" style="-ms-hyphens: none; '.$curr_content_style.'">' .$result_content.'</div></div>';
 
     return $template;
 
@@ -657,7 +647,7 @@ function info_box_install() {
             `id` INT(11) NOT NULL AUTO_INCREMENT,
             `title` VARCHAR(64) NULL DEFAULT NULL,
             `content` LONGTEXT NULL,
-            `fontSize` CHAR(2) NOT NULL DEFAULT '20',
+            `heightTitle` CHAR(3) NOT NULL DEFAULT '20',
             `colorTitle` CHAR(6) NOT NULL DEFAULT 'FFFFFF',
             `gradColorTitle` CHAR(6) NULL DEFAULT NULL,
             `gradPositionTitle` CHAR(20) NULL DEFAULT NULL,
