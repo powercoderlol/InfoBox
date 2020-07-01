@@ -56,6 +56,12 @@ PREVIEW BUTTON EVENT BEGIN
         if ($coderlol_grad == 'on') { $coderlol_grad='1'; } else { $coderlol_grad = '0'; }
         $coderlol_grad_color = $coderlol_note_color.$_POST['coderlol_note_color_grad'];
         $coderlol_grad_position = $_POST['coderlol_grad_position'];
+        $coderlol_hide_header = $_POST['coderlol_hide_header'];
+        if($coderlol_hide_header == 'on') {
+            $coderlol_hide_header = true;
+        } else {
+            $coderlol_hide_header = false;
+        }
 
         if ($coderlol_category == 'Прочее') {
             $coderlol_category = '0';
@@ -75,16 +81,17 @@ PREVIEW BUTTON EVENT BEGIN
             "grad" => $coderlol_grad,
             "grad_color" => $coderlol_grad_color,
             "grad_position" => $coderlol_grad_position,
-            "update_date" => ''
+            "update_date" => '',
+            "hide_header" => $coderlol_hide_header
         );
 
 
         $curr_date_object = new DateTime();
         //$curent_date = $curr_date_object->format('d.m.Y');
 
-        echo generate_note_preview($note_atts, $curr_date_object);
+        //echo generate_note_preview($note_atts, $curr_date_object);
 
-        coderlol_info_box_ui_subpage_0($coderlol_title, $coderlol_content, $coderlol_category, $coderlol_color_transfer, $coderlol_font_size, $coderlol_note_rotation, $coderlol_grad, $coderlol_grad_color, $coderlol_grad_position, '0','','');
+        coderlol_info_box_ui_subpage_0($coderlol_title, $coderlol_content, $coderlol_category, $coderlol_color_transfer, $coderlol_font_size, $coderlol_note_rotation, $coderlol_grad, $coderlol_grad_color, $coderlol_grad_position, '0','','', $coderlol_hide_header);
 
 
 
@@ -125,6 +132,14 @@ PREVIEW BUTTON EVENT END
 
         if ($coderlol_content_color_grad_pos == '') { $coderlol_content_color_grad = ''; }
 
+        $coderlol_hide_header = $_POST['coderlol_hide_header'];
+        if($coderlol_hide_header == 'on') {
+            $coderlol_hide_header = true;
+        } else {
+            $coderlol_hide_header = false;
+        }
+
+
         $wpdb->insert
                     (
                         $table_info_box,
@@ -140,7 +155,8 @@ PREVIEW BUTTON EVENT END
                                 'contentImgUrl' => $coderlol_content_img,
                                 'colorContent' => $coderlol_content_color,
                                 'gradColorContent' => $coderlol_content_color_grad,
-                                'gradPositionContent' => $coderlol_content_color_grad_pos)
+                                'gradPositionContent' => $coderlol_content_color_grad_pos,
+                                'hideHeader' => $coderlol_hide_header)
                     );
 
         update_option('coderlol_last_box', mysql_insert_id());
@@ -184,7 +200,7 @@ PREVIEW BUTTON EVENT END
     */
 
 
-    if ($preview == 'false' ) { coderlol_info_box_ui_subpage_0('','','100','E6E6E6','', '', '', 'E6E6E6', '', '','','0'); }
+    if ($preview == 'false' ) { coderlol_info_box_ui_subpage_0('','','100','E6E6E6','', '', '', 'E6E6E6', '', '','','0', $coderlol_hide_header); }
 }
 
 
@@ -197,9 +213,9 @@ function coderlol_info_box_option_subpage_2() {
     {
         $box_id = $_POST['coderlol_get_box'];
         update_option('coderlol_last_mod_box', $box_id);
-        $res = $wpdb->get_row("SELECT id, title, content, heightTitle, colorTitle, gradColorTitle, gradPositionTitle, titleImgUrl, colorContent, gradColorContent, gradPositionContent, contentImgUrl FROM ".$table_info_box." WHERE id=".$box_id, ARRAY_A);
+        $res = $wpdb->get_row("SELECT id, title, content, heightTitle, colorTitle, gradColorTitle, gradPositionTitle, titleImgUrl, colorContent, gradColorContent, gradPositionContent, contentImgUrl, hideHeader FROM ".$table_info_box." WHERE id=".$box_id, ARRAY_A);
 
-        coderlol_info_box_ui_subpage_0($res['title'], $res['content'], $res['heightTitle'], $res['colorTitle'], $res['gradColorTitle'], $res['gradPositionTitle'], $res['titleImgUrl'], $res['colorContent'], $res['gradColorContent'], $res['gradPositionContent'], $res['contentImgUrl'], '1');
+        coderlol_info_box_ui_subpage_0($res['title'], $res['content'], $res['heightTitle'], $res['colorTitle'], $res['gradColorTitle'], $res['gradPositionTitle'], $res['titleImgUrl'], $res['colorContent'], $res['gradColorContent'], $res['gradPositionContent'], $res['contentImgUrl'], '1', $res['hideHeader']);
 
     }
     elseif ( isset($_POST['coderlol_create_info_box_btn']) )
@@ -230,6 +246,13 @@ function coderlol_info_box_option_subpage_2() {
 
         if ($coderlol_content_color_grad_pos == '') { $coderlol_content_color_grad = ''; }
 
+        $coderlol_hide_header = $_POST['coderlol_hide_header'];
+        if($coderlol_hide_header == 'on') {
+            $coderlol_hide_header = true;
+        } else {
+            $coderlol_hide_header = false;
+        }
+
         $wpdb->update
                     (
                         $table_info_box,
@@ -246,7 +269,8 @@ function coderlol_info_box_option_subpage_2() {
                                 'contentImgUrl' => $coderlol_content_img,
                                 'colorContent' => $coderlol_content_color,
                                 'gradColorContent' => $coderlol_content_color_grad,
-                                'gradPositionContent' => $coderlol_content_color_grad_pos
+                                'gradPositionContent' => $coderlol_content_color_grad_pos,
+                                'hideHeader' => $coderlol_hide_header
                             ),
 
                         array(  
@@ -285,6 +309,13 @@ function coderlol_info_box_option_subpage_2() {
 
         if ($coderlol_content_color_grad_pos == '') { $coderlol_content_color_grad = ''; }
 
+        $coderlol_hide_header = $_POST['coderlol_hide_header'];
+        if($coderlol_hide_header == 'on') {
+            $coderlol_hide_header = true;
+        } else {
+            $coderlol_hide_header = false;
+        }
+
         /**
         PLACE FOR PREVIEW GENERATOR
         **/
@@ -301,12 +332,12 @@ function coderlol_info_box_option_subpage_2() {
                                 'contentImgUrl' => $coderlol_content_img,
                                 'colorContent' => $coderlol_content_color,
                                 'gradColorContent' => $coderlol_content_color_grad,
-                                'gradPositionContent' => $coderlol_content_color_grad_pos
+                                'gradPositionContent' => $coderlol_content_color_grad_pos,
+                                'hideHeader' => $coderlol_hide_header
                             );
 
         echo create_info_box_template_preview($box_id,1,$result);
-        
-        coderlol_info_box_ui_subpage_0($coderlol_title, $coderlol_content, $coderlol_title_height, $coderlol_title_color, $coderlol_title_color_grad, $coderlol_title_color_grad_pos, $coderlol_title_img, $coderlol_content_color, $coderlol_content_color_grad, $coderlol_content_color_grad_pos, $coderlol_content_img, '1');
+        coderlol_info_box_ui_subpage_0($coderlol_title, $coderlol_content, $coderlol_title_height, $coderlol_title_color, $coderlol_title_color_grad, $coderlol_title_color_grad_pos, $coderlol_title_img, $coderlol_content_color, $coderlol_content_color_grad, $coderlol_content_color_grad_pos, $coderlol_content_img, '1', $coderlol_hide_header);
 
 
     }
@@ -328,7 +359,7 @@ function coderlol_info_box_option_subpage_2() {
 
 UI SUBPAGE CREATE NOTE
 */
-function coderlol_info_box_ui_subpage_0($title, $content_box, $heightTitle, $colorTitle, $gradColorTitle, $gradPositionTitle, $titleImgUrl, $colorContent, $gradColorContent, $gradPositionContent, $contentImgUrl, $update)
+function coderlol_info_box_ui_subpage_0($title, $content_box, $heightTitle, $colorTitle, $gradColorTitle, $gradPositionTitle, $titleImgUrl, $colorContent, $gradColorContent, $gradPositionContent, $contentImgUrl, $update, $hideHeader)
 {
 $settings = array ('convert_urls' => true, 'relative_urls' => false, 'remove_script_host' => false, 'document_base_url' => 'base_path()', 'forced_root_block' => 'br');
 $editor_id = 'coderlol_info_box_content';
@@ -365,6 +396,10 @@ elseif ($update == '0')
             <p>                 
                 <input id='coderlol_info_box_title' name='coderlol_info_box_title' type='text' class='coderlol-note-text' value=<?php echo "'".$title."'" ?>>
             </p>
+        <p>
+            <input id='coderlol_hide_header' name='coderlol_hide_header' type="checkbox" <?php if ($hideHeader == true) echo "checked"; ?> >
+            Скрыть заголовок
+        </p>
         <hr noshade size="3"></hr>
         <label><h3>Содержимое:</h3></label>
             <div style="width: 70%">
@@ -505,10 +540,12 @@ function create_info_box_template($id)
     $color_prefix = '#';
 
     //$sql = $wpdb->prepare("SELECT id, title, content, heightTitle, colorTitle, gradColorTitle, gradPositionTitle, titleImgUrl, colorContent, gradColorContent, gradPositionContent, contentImgUrl FROM %s WHERE id = %d", $table_info_box, $id);
-    $result = $wpdb->get_row("SELECT id, title, content, heightTitle, colorTitle, gradColorTitle, gradPositionTitle, titleImgUrl, colorContent, gradColorContent, gradPositionContent, contentImgUrl FROM ".$table_info_box." WHERE id=".$id);
+    $result = $wpdb->get_row("SELECT id, title, content, heightTitle, colorTitle, gradColorTitle, gradPositionTitle, titleImgUrl, colorContent, gradColorContent, gradPositionContent, contentImgUrl, hideHeader FROM ".$table_info_box." WHERE id=".$id);
     // TODO: check error if not result_array
     if($result == null)
         return;
+
+    $hide_header = $result->hideHeader;
 
     /**
         TITLE
@@ -549,7 +586,11 @@ function create_info_box_template($id)
     //$result_content = do_shortcode(str_replace(array("\r\n", "\r", "\n"), "<br />", $result->content));
     $result_content = do_shortcode($result->content);
 
-    $template = '<div class="coderlol-info-box" ><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result->title . '</div></div><div class="coderlol-info-box-content" style="-ms-hyphens: none; '.$curr_content_style.'">' .$result_content.'</div></div>';
+    $template = '<div class="coderlol-info-box" ><div class="coderlol-info-box-title" style="'.$curr_title_style.'">';
+    if(!$hide_header) {
+        $template = $template.'<div class="coderlol-new-title-box">' . $result->title . '</div>';
+    }
+    $template = $template.'</div><div class="coderlol-info-box-content" style="-ms-hyphens: none; '.$curr_content_style.'">' .$result_content.'</div></div>';
 
     return $template;
 
@@ -563,6 +604,7 @@ function create_info_box_template_preview($id, $preview_width, $result)
     //$table_info_box = $wpdb['prefix . "coderlol_info_box";
     //$result_array = mysql_query("SELECT * FROM ".$table_info_box." WHERE id=".$id);
     //$result = mysql_fetch_array($result_array, MYSQL_ASSOC);
+    $hide_header = $result['hideHeader'];
 
     $color_prefix = '#';
     if ($preview_width == 1)
@@ -613,7 +655,11 @@ function create_info_box_template_preview($id, $preview_width, $result)
     //$result_content = do_shortcode(str_replace(array("\r\n", "\r", "\n"), "<br />", $result['content));
     $result_content = do_shortcode($result['content']);
 
-    $template = '<div class="coderlol-info-box" '.$preview_width.'><div class="coderlol-info-box-title" style="'.$curr_title_style.'"><div class="coderlol-new-title-box">' . $result['title'] . '</div></div><div class="coderlol-info-box-content" style="-ms-hyphens: none; '.$curr_content_style.'">' .$result_content.'</div></div>';
+    $template = '<div class="coderlol-info-box" '.$preview_width.'><div class="coderlol-info-box-title" style="'.$curr_title_style.'">';
+    if(!$hide_header) {
+        $template = $template.'<div class="coderlol-new-title-box">' . $result['title'] . '</div>';
+    }
+    $template = $template.'</div><div class="coderlol-info-box-content" style="-ms-hyphens: none; '.$curr_content_style.'">' .$result_content.'</div></div>';
 
     return $template;
 
@@ -656,9 +702,9 @@ function info_box_install() {
             `gradColorContent` CHAR(6) NULL DEFAULT NULL,
             `gradPositionContent` CHAR(20) NULL DEFAULT NULL,
             `contentImgUrl` VARCHAR(200) NULL DEFAULT NULL,
+            `hideHeader` BOOLEAN NOT NULL DEFAULT FALSE,
             PRIMARY KEY (`id`)
         ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
     ";
 
     dbDelta($sql);
@@ -669,15 +715,10 @@ function info_box_install() {
 }
 
 function info_box_uninstall() {
-
     global $wpdb;
-
     $table_notes = $wpdb->prefix . 'coderlol_notes';
-
     $sql = 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'coderlol_info_box';
-
     //$wpdb->query($sql);
-    
     remove_shortcode('coderlol_info_box');
 }
 
