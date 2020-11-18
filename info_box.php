@@ -159,7 +159,7 @@ PREVIEW BUTTON EVENT END
                                 'hideHeader' => $coderlol_hide_header)
                     );
 
-        update_option('coderlol_last_box', mysql_insert_id());
+        update_option('coderlol_last_box', $wpdb->insert_id);
 
 
         /*$info_box_template = create_info_box_template();
